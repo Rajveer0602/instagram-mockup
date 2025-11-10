@@ -1,25 +1,17 @@
-import React, { useState, useRef, useEffect } from "react";
-import { FaHeart, FaRegComment, FaRegPaperPlane, FaHome, FaSearch, FaFilm, FaFacebookMessenger } from "react-icons/fa";
-import { FiPlusSquare } from "react-icons/fi";
+import React, { useState } from "react";
+import { FaHeart, FaRegComment, FaRegPaperPlane, FaFacebookMessenger } from "react-icons/fa";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Home, Search, PlusSquare, Clapperboard, User } from "lucide-react";
 
-
 export default function InstagramMobileMockup() {
-    const maxHeaderHeight = 56;
-    const [headerOffset, setHeaderOffset] = useState(0);
-    const targetOffset = useRef(0);
-    const lastScrollY = useRef(0);
-    const ticking = useRef(false);
-
-
     const [posts, setPosts] = useState([
         {
             id: 1,
             user: "alex_99",
             avatar: `https://randomuser.me/api/portraits/men/32.jpg`,
-            image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=60",
+            image:
+                "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=60",
             imageCaption: "Sunset vibes — chasing light.",
             liked: false,
             saved: false,
@@ -28,90 +20,85 @@ export default function InstagramMobileMockup() {
             id: 2,
             user: "lina.art",
             avatar: `https://randomuser.me/api/portraits/women/44.jpg`,
-            image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=60",
+            image:
+                "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=60",
             imageCaption: "Coffee and sketches ☕️✏️",
             liked: false,
             saved: false,
         },
     ]);
 
-    const handleScroll = (e) => {
-        const currentScrollY = e.target.scrollTop;
-        const diff = currentScrollY - lastScrollY.current;
-
-        targetOffset.current = Math.min(0, Math.max(-maxHeaderHeight, targetOffset.current - diff));
-        lastScrollY.current = currentScrollY;
-
-        if (!ticking.current) {
-            ticking.current = true;
-            requestAnimationFrame(smoothHeader);
-        }
-    };
-
-    const smoothHeader = () => {
-        setHeaderOffset((prev) => {
-            const delta = (targetOffset.current - prev) * 0.2; // easing factor
-            if (Math.abs(delta) < 0.5) return targetOffset.current; // snap when close enough
-            requestAnimationFrame(smoothHeader);
-            return prev + delta;
-        });
-        ticking.current = false;
-    };
-
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
-            <div className="relative w-[520px] h-[1020px] rounded-3xl shadow-2xl bg-white overflow-hidden border border-gray-200">
-
-                {/* Header */}
-                <header
-                    className="absolute top-0 left-0 right-0 h-14 px-4 flex items-center justify-between border-b border-gray-100 bg-white z-10"
-                    style={{ transform: `translateY(${headerOffset}px)` }}
-                >
+        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+            {/* Main Instagram Frame */}
+            <div
+                className="
+                    relative
+                    bg-white
+                    rounded-3xl
+                    shadow-2xl
+                    border border-gray-200
+                    w-full
+                    max-w-[430px]
+                    h-screen
+                    md:w-[430px]
+                    md:h-screen
+                    overflow-hidden
+                "
+            >
+                {/* ✅ Static Header (No Scroll Animation) */}
+                <header className="absolute top-0 left-0 right-0 h-16 px-4 flex items-center justify-between border-b border-gray-100 bg-white z-10">
                     <h1 className="font-mono text-xl font-semibold tracking-wide">
-                        <img src="logo.jpeg" alt="Instagram Logo"
-                            className="h-14 w-auto object-contain" />
+                        <img
+                            src="logo.jpeg"
+                            alt="Instagram Logo"
+                            className="h-14 w-auto object-contain"
+                            loading="lazy"
+                        />
                     </h1>
 
                     <div className="flex items-center gap-3">
-                        <button aria-label="like" className="p-1"><AiOutlineHeart className="text-2xl" /></button>
-                        <button aria-label="messages" className="p-1"><FaFacebookMessenger className="text-2xl" /></button>
+                        <button aria-label="like" className="p-1">
+                            <AiOutlineHeart className="text-2xl" />
+                        </button>
+                        <button aria-label="messages" className="p-1">
+                            <FaFacebookMessenger className="text-2xl" />
+                        </button>
                     </div>
                 </header>
 
-                {/* Main content */}
-                <main
-                    className="pb-16 overflow-y-auto h-[1020px] scrollbar-none"
-                    onScroll={handleScroll}
-                    style={{ paddingTop: `${maxHeaderHeight}px` }}
-                >
+                {/* ✅ Scrollable Main Content (Header stays fixed) */}
+                <main className="absolute top-14 left-0 right-0 bottom-14 overflow-y-auto scrollbar-none">
                     {/* Stories */}
-                    <section className="px-3 mb-3">
+                    <section className="px-3 mb-3 pt-3">
                         <div className="flex gap-3 overflow-x-auto scrollbar-none py-2 px-1">
-
-                            {/* First story: Your Story */}
-                            <div className="flex flex-col items-center min-w-[68px] relative">
+                            {/* Your Story */}
+                            <div className="flex flex-col items-center min-w-[68px]">
                                 <div className="relative w-16 h-16 rounded-full bg-gray-200 p-[2px] flex items-center justify-center">
                                     <img
-                                        src={`https://randomuser.me/api/portraits/men/45.jpg`} // your avatar
+                                        src={`https://randomuser.me/api/portraits/men/45.jpg`}
                                         alt="Your Story"
                                         className="w-14 h-14 rounded-full object-cover"
+                                        loading="lazy"
                                     />
-                                    {/* + icon */}
                                     <div className="absolute bottom-0 right-0 w-5 h-5 bg-blue-500 border-2 border-white rounded-full flex items-center justify-center text-white text-[10px] font-bold">
                                         +
                                     </div>
                                 </div>
-                                <div className="mt-1 text-[11px] text-gray-600 truncate w-16 text-center">Your Story</div>
+                                <div className="mt-1 text-[11px] text-gray-600 truncate w-16 text-center">
+                                    Your Story
+                                </div>
                             </div>
 
-                            {/* Other stories */}
+                            {/* Other Stories */}
                             {Array.from({ length: 7 }).map((_, i) => (
                                 <div key={i} className="flex flex-col items-center min-w-[68px]">
                                     <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 p-[2px] flex items-center justify-center">
                                         <img
                                             src={`https://randomuser.me/api/portraits/men/${i + 10}.jpg`}
                                             alt={`user${i + 1}`}
-                                            className="w-15 h-15 rounded-full object-cover"
+                                            className="w-14 h-14 rounded-full object-cover"
+                                            loading="lazy"
                                         />
                                     </div>
                                     <div className="mt-1 text-[11px] text-gray-600 truncate w-16 text-center">
@@ -119,30 +106,43 @@ export default function InstagramMobileMockup() {
                                     </div>
                                 </div>
                             ))}
-
                         </div>
                     </section>
 
                     {/* Posts */}
-                    <section className="px-1">
+                    <section className="px-1 pb-6">
                         {posts.map((post) => (
-                            <article key={post.id} className="mb-6 bg-white rounded-md overflow-hidden border border-gray-100 shadow-sm">
+                            <article
+                                key={post.id}
+                                className="mb-6 bg-white rounded-md overflow-hidden border border-gray-100 shadow-sm"
+                            >
                                 <div className="flex items-center p-3">
-                                    <img src={post.avatar} alt={post.user} className="w-10 h-10 rounded-full mr-3 object-cover" />
+                                    <img
+                                        src={post.avatar}
+                                        alt={`${post.user} avatar`}
+                                        className="w-10 h-10 rounded-full mr-3 object-cover"
+                                        loading="lazy"
+                                    />
                                     <div className="flex-1">
                                         <div className="text-sm font-semibold">{post.user}</div>
                                         <div className="text-xs text-gray-500">Location • 2h</div>
                                     </div>
-                                    <button aria-label="more" className="p-1">⋯</button>
+                                    <button aria-label="more" className="p-1">
+                                        ⋯
+                                    </button>
                                 </div>
-                                <img src={post.image} alt="post" className="w-full h-[420px] object-cover" />
+
+                                <img
+                                    src={post.image}
+                                    alt={`${post.user} post`}
+                                    className="w-full h-[420px] object-cover"
+                                    loading="lazy"
+                                />
 
                                 <div className="p-3 flex items-center justify-between">
-                                    {/* Left icons: Like, Comment, Share */}
                                     <div className="flex items-center gap-4">
-                                        {/* Like button */}
                                         <button
-                                            aria-label="like"
+                                            aria-label={`like ${post.user} post`}
                                             className="p-1"
                                             onClick={() =>
                                                 setPosts((prev) =>
@@ -159,20 +159,17 @@ export default function InstagramMobileMockup() {
                                             )}
                                         </button>
 
-                                        {/* Comment */}
                                         <button aria-label="comment" className="p-1">
                                             <FaRegComment className="text-2xl" />
                                         </button>
 
-                                        {/* Share */}
                                         <button aria-label="share" className="p-1">
                                             <FaRegPaperPlane className="text-2xl" />
                                         </button>
                                     </div>
 
-                                    {/* Save button */}
                                     <button
-                                        aria-label="save"
+                                        aria-label={`save ${post.user} post`}
                                         className="p-1"
                                         onClick={() =>
                                             setPosts((prev) =>
@@ -192,12 +189,22 @@ export default function InstagramMobileMockup() {
 
                                 <div className="px-3 pb-3 text-sm text-gray-700">
                                     <div className="font-semibold mb-1">1,234 likes</div>
-                                    <div className="mb-2"><span className="font-semibold mr-2">{post.user}</span>{post.imageCaption}</div>
-                                    <div className="text-xs text-gray-500 mb-2">View all 12 comments</div>
+                                    <div className="mb-2">
+                                        <span className="font-semibold mr-2">{post.user}</span>
+                                        {post.imageCaption}
+                                    </div>
+                                    <div className="text-xs text-gray-500 mb-2">
+                                        View all 12 comments
+                                    </div>
                                     <div className="flex items-center gap-2">
                                         <div className="w-8 h-8 rounded-full bg-gray-200" />
-                                        <input className="flex-1 bg-transparent outline-none text-sm" placeholder="Add a comment..." />
-                                        <button className="text-xs font-semibold text-blue-500">Post</button>
+                                        <input
+                                            className="flex-1 bg-transparent outline-none text-sm"
+                                            placeholder="Add a comment..."
+                                        />
+                                        <button className="text-xs font-semibold text-blue-500">
+                                            Post
+                                        </button>
                                     </div>
                                 </div>
                             </article>
@@ -205,8 +212,8 @@ export default function InstagramMobileMockup() {
                     </section>
                 </main>
 
-                {/* Bottom nav stays static */}
-                <nav className="absolute bottom-0 left-0 right-0 h-20 border-t border-gray-100 bg-white flex items-center justify-between px-10">
+                {/* ✅ Static Bottom Navigation */}
+                <nav className="absolute bottom-0 left-0 right-0 h-14 border-t border-gray-100 bg-white flex items-center justify-between px-8">
                     <div className="flex items-center justify-between w-full">
                         <button className="p-1">
                             <Home className="w-7 h-7" strokeWidth={1.7} />
@@ -226,15 +233,13 @@ export default function InstagramMobileMockup() {
                     </div>
                 </nav>
 
-
+                <style>
+                    {`
+                        .scrollbar-none::-webkit-scrollbar { display: none; }
+                        .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+                    `}
+                </style>
             </div>
-
-            <style>
-                {`
-          .scrollbar-none::-webkit-scrollbar { display: none; }
-          .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
-        `}
-            </style>
         </div>
     );
 }
