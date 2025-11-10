@@ -60,7 +60,7 @@ export default function InstagramMobileMockup() {
           className="absolute top-0 left-0 right-0 h-14 px-4 flex items-center justify-between border-b border-gray-100 bg-white z-10"
           style={{ transform: `translateY(${headerOffset}px)` }}
         >
-          <h1 className="font-mono text-2xl font-semibold tracking-wide">Instagram</h1>
+          <h1 className="font-mono text-xl font-semibold tracking-wide">Instagram</h1>
           <div className="flex items-center gap-3">
             <button aria-label="like" className="p-1"><AiOutlineHeart className="text-2xl" /></button>
             <button aria-label="messages" className="p-1"><FaFacebookMessenger className="text-2xl" /></button>
