@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaHeart, FaRegComment, FaRegPaperPlane, FaFacebookMessenger } from "react-icons/fa";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Home, Search, PlusSquare, Clapperboard, User } from "lucide-react";
-
-/**
- * Responsive Instagram mockup
- * - Header and Bottom Nav are always visible (fixed inside the card)
- * - Header/Nav heights scale with the viewport using a --vh CSS variable
- * - Feed (main) is the only scrollable area between header & nav
- */
 
 export default function InstagramMobileMockup() {
   const [posts, setPosts] = useState([
@@ -35,30 +28,9 @@ export default function InstagramMobileMockup() {
     },
   ]);
 
-  // Set --vh CSS variable so mobile viewport units work reliably across browsers
-  useEffect(() => {
-    const setVh = () => {
-      // --vh will represent 1% of the viewport height in pixels
-      document.documentElement.style.setProperty("--vh", `${window.innerHeight / 100}px`);
-    };
-
-    setVh();
-    window.addEventListener("resize", setVh);
-    window.addEventListener("orientationchange", setVh);
-
-    return () => {
-      window.removeEventListener("resize", setVh);
-      window.removeEventListener("orientationchange", setVh);
-    };
-  }, []);
-
   return (
-    // lock the page height so header & nav can't be scrolled out of view
     <div className="h-screen overflow-hidden bg-gray-100 flex items-center justify-center">
-      {/* Card container:
-          - mobile: full width & height
-          - md+: fixed width (430px) and full viewport height
-      */}
+      {/* Main Container */}
       <div
         className="
           relative
@@ -74,22 +46,8 @@ export default function InstagramMobileMockup() {
           overflow-hidden
         "
       >
-        {/*
-          Responsive heights:
-          - header uses: calc(var(--vh) * 8)  => ~8vh (adjust multiplier to taste)
-          - nav uses:    calc(var(--vh) * 9)  => ~9vh
-          These multipliers can be tuned (smaller -> thinner header/nav).
-        */}
-
-        {/* Header: fixed inside card and visible always */}
-        <header
-          className="absolute top-0 left-0 right-0 px-4 flex items-center justify-between border-b border-gray-100 bg-white z-50"
-          style={{
-            height: "calc(var(--vh) * 8)", // scales with viewport (8 * 1vh)
-            minHeight: "48px", // safety minimum so it doesn't get too small on tiny viewports
-            maxHeight: "96px", // safety maximum
-          }}
-        >
+        {/* 🔹 Header (Static, Always Visible) */}
+        <header className="absolute top-0 left-0 right-0 h-16 md:h-20 px-4 flex items-center justify-between border-b border-gray-100 bg-white z-50">
           <h1 className="font-mono text-xl font-semibold tracking-wide">
             <img
               src="logo.jpeg"
@@ -109,16 +67,8 @@ export default function InstagramMobileMockup() {
           </div>
         </header>
 
-        {/* Main scrollable feed — only this area scrolls.
-            top/bottom are tied to the same responsive CSS multipliers so layout is consistent.
-        */}
-        <main
-          className="absolute left-0 right-0 overflow-y-auto scrollbar-none"
-          style={{
-            top: "calc(var(--vh) * 8)", // same multiplier as header height
-            bottom: "calc(var(--vh) * 9)", // same multiplier as nav height
-          }}
-        >
+        {/* 🔹 Scrollable Feed (only this scrolls) */}
+        <main className="absolute top-16 md:top-20 left-0 right-0 bottom-14 md:bottom-16 overflow-y-auto scrollbar-none">
           {/* Stories */}
           <section className="px-3 mb-3 pt-3">
             <div className="flex gap-3 overflow-x-auto scrollbar-none py-2 px-1">
@@ -140,7 +90,7 @@ export default function InstagramMobileMockup() {
                 </div>
               </div>
 
-              {/* Other Stories (thin ring via small padding) */}
+              {/* Other Stories (thin ring) */}
               {Array.from({ length: 7 }).map((_, i) => (
                 <div key={i} className="flex flex-col items-center min-w-[68px]">
                   <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 p-[0.5px] flex items-center justify-center">
@@ -254,15 +204,8 @@ export default function InstagramMobileMockup() {
           </section>
         </main>
 
-        {/* Bottom nav — fixed and always visible */}
-        <nav
-          className="absolute bottom-0 left-0 right-0 border-t border-gray-100 bg-white flex items-center justify-between px-8 z-50"
-          style={{
-            height: "calc(var(--vh) * 9)", // nav = ~9vh
-            minHeight: "48px",
-            maxHeight: "96px",
-          }}
-        >
+        {/* 🔹 Bottom Navigation (Static, Always Visible) */}
+        <nav className="absolute bottom-0 left-0 right-0 h-14 md:h-16 border-t border-gray-100 bg-white flex items-center justify-between px-8 z-50">
           <div className="flex items-center justify-between w-full">
             <button className="p-1">
               <Home className="w-7 h-7" strokeWidth={1.7} />
