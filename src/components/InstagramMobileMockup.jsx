@@ -33,20 +33,20 @@ export default function InstagramMobileMockup() {
             {/* Main Instagram Frame */}
             <div
                 className="
-                    relative
-                    bg-white
-                    rounded-3xl
-                    shadow-2xl
-                    border border-gray-200
-                    w-full
-                    max-w-[430px]
-                    h-screen
-                    md:w-[430px]
-                    md:h-screen
-                    overflow-hidden
-                "
+          relative
+          bg-white
+          rounded-3xl
+          shadow-2xl
+          border border-gray-200
+          w-full
+          max-w-[430px]
+          h-screen
+          md:w-[430px]
+          md:h-screen
+          overflow-hidden
+        "
             >
-                {/* ✅ Static Header (No Scroll Animation) */}
+                {/* ✅ Static Header */}
                 <header className="absolute top-0 left-0 right-0 h-16 px-4 flex items-center justify-between border-b border-gray-100 bg-white z-10">
                     <h1 className="font-mono text-xl font-semibold tracking-wide">
                         <img
@@ -59,22 +59,22 @@ export default function InstagramMobileMockup() {
 
                     <div className="flex items-center gap-3">
                         <button aria-label="like" className="p-1">
-                            <AiOutlineHeart className="text-2xl" />
+                            <AiOutlineHeart size={24} />
                         </button>
                         <button aria-label="messages" className="p-1">
-                            <FaFacebookMessenger className="text-2xl" />
+                            <FaFacebookMessenger size={24} />
                         </button>
                     </div>
                 </header>
 
-                {/* ✅ Scrollable Main Content (Header stays fixed) */}
-                <main className="absolute top-14 left-0 right-0 bottom-14 overflow-y-auto scrollbar-none">
+                {/* ✅ Scrollable Main Content */}
+                <main className="absolute top-16 left-0 right-0 bottom-14 overflow-y-auto scrollbar-none">
                     {/* Stories */}
                     <section className="px-3 mb-3 pt-3">
                         <div className="flex gap-3 overflow-x-auto scrollbar-none py-2 px-1">
                             {/* Your Story */}
                             <div className="flex flex-col items-center min-w-[68px]">
-                                <div className="relative w-16 h-16 rounded-full bg-gray-200 p-[2px] flex items-center justify-center">
+                                <div className="relative w-16 h-16 rounded-full bg-gray-200 p-[1px] flex items-center justify-center">
                                     <img
                                         src={`https://randomuser.me/api/portraits/men/45.jpg`}
                                         alt="Your Story"
@@ -90,14 +90,22 @@ export default function InstagramMobileMockup() {
                                 </div>
                             </div>
 
-                            {/* Other Stories */}
+                            {/* Other Stories (now thinner border: p-[0.5px]) */}
                             {Array.from({ length: 7 }).map((_, i) => (
                                 <div key={i} className="flex flex-col items-center min-w-[68px]">
-                                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 p-[2px] flex items-center justify-center">
+                                    <div
+                                        className="
+                                            w-16 h-16 
+                                            rounded-full 
+                                            bg-gradient-to-br 
+                                            from-purple-400 to-pink-500 
+                                            p-[0.5px] 
+                                            flex items-center justify-center"
+                                    >
                                         <img
                                             src={`https://randomuser.me/api/portraits/men/${i + 10}.jpg`}
                                             alt={`user${i + 1}`}
-                                            className="w-14 h-14 rounded-full object-cover"
+                                            className="w-[59px] h-[59px] rounded-full object-cover bg-white"
                                             loading="lazy"
                                         />
                                     </div>
@@ -106,15 +114,17 @@ export default function InstagramMobileMockup() {
                                     </div>
                                 </div>
                             ))}
+
+
                         </div>
                     </section>
 
                     {/* Posts */}
-                    <section className="px-1 pb-6">
+                    <section className="px-1">
                         {posts.map((post) => (
                             <article
                                 key={post.id}
-                                className="mb-6 bg-white rounded-md overflow-hidden border border-gray-100 shadow-sm"
+                                className="mb-6 last:mb-0 bg-white rounded-md overflow-hidden border border-gray-100 shadow-sm"
                             >
                                 <div className="flex items-center p-3">
                                     <img
@@ -153,18 +163,19 @@ export default function InstagramMobileMockup() {
                                             }
                                         >
                                             {post.liked ? (
-                                                <FaHeart className="text-2xl text-red-500" />
+                                                <FaHeart size={25} className="text-red-500" />
                                             ) : (
-                                                <AiOutlineHeart className="text-2xl text-black" />
+                                                <AiOutlineHeart size={25} className="text-black" />
                                             )}
                                         </button>
 
+                                        {/* comment and share icons now same size */}
                                         <button aria-label="comment" className="p-1">
-                                            <FaRegComment className="text-2xl" />
+                                            <FaRegComment size={22} />
                                         </button>
 
                                         <button aria-label="share" className="p-1">
-                                            <FaRegPaperPlane className="text-2xl" />
+                                            <FaRegPaperPlane size={21} />
                                         </button>
                                     </div>
 
@@ -235,9 +246,9 @@ export default function InstagramMobileMockup() {
 
                 <style>
                     {`
-                        .scrollbar-none::-webkit-scrollbar { display: none; }
-                        .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
-                    `}
+            .scrollbar-none::-webkit-scrollbar { display: none; }
+            .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+          `}
                 </style>
             </div>
         </div>
