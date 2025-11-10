@@ -191,9 +191,9 @@ export default function InstagramMobileMockup() {
                                         }
                                     >
                                         {post.saved ? (
-                                            <BsBookmarkFill className="text-2xl text-black" />
+                                            <BsBookmarkFill className="text-2xl text-black" size={23}/>
                                         ) : (
-                                            <BsBookmark className="text-2xl text-gray-400" />
+                                            <BsBookmark className="text-2xl text-gray-400"  size={23}/>
                                         )}
                                     </button>
                                 </div>
