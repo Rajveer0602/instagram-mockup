@@ -4,13 +4,15 @@ import { Home, Search, PlusSquare, Clapperboard, User } from 'lucide-react';
 export default function BottomNav() {
   return (
     <nav
-      className="absolute bottom-0 left-0 right-0
-                 h-12 sm:h-14 md:h-16 lg:h-20
-                 border-t border-gray-100 bg-white
-                 flex items-center justify-between
-                 px-3 sm:px-4 md:px-6 lg:px-8
-                 z-50
-                 pb-[env(safe-area-inset-bottom)]"
+      // className="absolute bottom-0 left-0 right-0
+      //            h-12 sm:h-14 md:h-16 lg:h-20
+      //            border-t border-gray-100 bg-white
+      //            flex items-center justify-between
+      //            px-3 sm:px-4 md:px-6 lg:px-8
+      //            z-50
+      //            pb-[env(safe-area-inset-bottom)]"
+      className="absolute bottom-0 left-0 right-0 h-12 sm:h-14 md:h-16 lg:h-20 border-t border-gray-100 bg-white flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8 z-50"
+  style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
     >
       <div className="flex items-center justify-between w-full">
         <button type="button" aria-label="Home" className="p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-300 rounded-md">

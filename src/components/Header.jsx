@@ -5,13 +5,16 @@ import { FaFacebookMessenger } from 'react-icons/fa';
 export default function Header() {
   return (
     <header
-      className="absolute top-0 left-0 right-0
-                 h-12 sm:h-14 md:h-16 lg:h-20
-                 px-3 sm:px-4 md:px-6 lg:px-8
-                 flex items-center justify-between
-                 border-b border-gray-100 bg-white
-                 z-50
-                 pt-[env(safe-area-inset-top)]"
+      // className="absolute top-0 left-0 right-0
+      //            h-12 sm:h-14 md:h-16 lg:h-20
+      //            px-3 sm:px-4 md:px-6 lg:px-8
+      //            flex items-center justify-between
+      //            border-b border-gray-100 bg-white
+      //            z-50
+      //            pt-[env(safe-area-inset-top)]"
+      //            style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
+className="absolute top-0 left-0 right-0 h-12 sm:h-14 md:h-16 lg:h-20 px-3 sm:px-4 md:px-6 lg:px-8 flex items-center justify-between border-b border-gray-100 bg-white z-50"
+  style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
     >
       <h1 className="font-mono text-lg sm:text-xl md:text-xl lg:text-2xl font-semibold tracking-wide">
         <img src="/logo.jpeg" alt="YourApp name" className="h-8 sm:h-10 md:h-12 lg:h-14 w-auto object-contain" loading="lazy" />
