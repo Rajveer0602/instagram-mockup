@@ -27,10 +27,10 @@ export default function Post({ post, onToggleLike, onToggleSave }) {
                     </button>
 
 
-                    <button aria-label="comment" className="p-1"><FaRegComment size={24} /></button>
+                    <button aria-label="comment" className="p-1"><FaRegComment size={21} /></button>
 
 
-                    <button aria-label="share" className="p-1"><FaRegPaperPlane size={24} /></button>
+                    <button aria-label="share" className="p-1"><FaRegPaperPlane size={21} /></button>
                 </div>
 
 
