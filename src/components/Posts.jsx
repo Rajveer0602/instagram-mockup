@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
-import { FaRegComment, FaRegPaperPlane } from 'react-icons/fa';
+import { FaHeart, FaRegComment, FaRegPaperPlane } from 'react-icons/fa';
 
 
 export default function Post({ post, onToggleLike, onToggleSave }) {
