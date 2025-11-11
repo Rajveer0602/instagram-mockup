@@ -1,71 +1,4 @@
-// import React, { useState } from 'react';
-// import Header from './Header';
-// import Stories from './Stories';
-// import Post from './Posts'; // corrected import (was './Posts' before)
-// import BottomNav from './BottomNav';
-
-// export default function InstagramMobileMockup() {
-//   const [posts, setPosts] = useState([
-//     {
-//       id: 1,
-//       user: 'alex_99',
-//       avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-//       image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=60',
-//       imageCaption: 'Sunset vibes — chasing light.',
-//       liked: false,
-//       saved: false,
-//     },
-//     {
-//       id: 2,
-//       user: 'lina.art',
-//       avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-//       image: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=60',
-//       imageCaption: 'Coffee and sketches ☕️✏️',
-//       liked: false,
-//       saved: false,
-//     },
-//   ]);
-
-//   const toggleLike = (id) => {
-//     setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, liked: !p.liked } : p)));
-//   };
-
-//   const toggleSave = (id) => {
-//     setPosts((prev) => prev.map((p) => (p.id === id ? { ...p, saved: !p.saved } : p)));
-//   };
-
-//   return (
-//     <div className="h-screen overflow-hidden bg-gray-100 flex items-center justify-center">
-//       <div
-//         className="relative bg-white rounded-3xl shadow-2xl border border-gray-200 w-full max-w-[430px] 
-//                    h-[100dvh] md:w-[430px] md:h-[100dvh] overflow-hidden"
-//       >
-//         <Header />
-
-//         <main
-//           className="absolute top-12 sm:top-14 md:top-16 lg:top-20
-//                      left-0 right-0
-//                      bottom-12 sm:bottom-14 md:bottom-16 lg:bottom-20
-//                      overflow-y-auto scrollbar-none"
-//         >
-//           <Stories />
-
-//           <section className="px-1">
-//             {posts.map((post) => (
-//               <Post key={post.id} post={post} onToggleLike={toggleLike} onToggleSave={toggleSave} />
-//             ))}
-//           </section>
-//         </main>
-
-//         <BottomNav />
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import Stories from './Stories';
 import Post from './Posts';
@@ -77,60 +10,39 @@ export default function InstagramMobileMockup() {
     { id: 2, user: 'lina.art', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', image: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=60', imageCaption: 'Coffee and sketches ☕️✏️', liked: false, saved: false },
   ]);
 
-  // toggle helpers...
   const toggleLike = (id) => setPosts(prev => prev.map(p => p.id === id ? { ...p, liked: !p.liked } : p));
   const toggleSave = (id) => setPosts(prev => prev.map(p => p.id === id ? { ...p, saved: !p.saved } : p));
 
-  // --- viewport height handling ---
-  useEffect(() => {
-    const setAppHeight = () => {
-      // prefer visualViewport for the dynamic UI on mobile browsers
-      const vh = (window.visualViewport && window.visualViewport.height) ? window.visualViewport.height : window.innerHeight;
-      document.documentElement.style.setProperty('--app-height', `${vh}px`);
-    };
-
-    setAppHeight();
-
-    // update on resize / orientationchange
-    window.addEventListener('resize', setAppHeight);
-    window.addEventListener('orientationchange', setAppHeight);
-
-    // visualViewport events (more responsive when available)
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', setAppHeight);
-      window.visualViewport.addEventListener('scroll', setAppHeight);
-    }
-
-    return () => {
-      window.removeEventListener('resize', setAppHeight);
-      window.removeEventListener('orientationchange', setAppHeight);
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener('resize', setAppHeight);
-        window.visualViewport.removeEventListener('scroll', setAppHeight);
-      }
-    };
-  }, []);
-
   return (
-    <div className="h-screen overflow-hidden bg-gray-100 flex items-center justify-center">
-      <div
-        className="relative bg-white rounded-3xl shadow-2xl border border-gray-200 w-full max-w-[430px] overflow-hidden"
-        style={{ height: 'var(--app-height)' }} // <- uses actual visible viewport height
-      >
-        <Header />
+    <div className="min-h-screen bg-gray-100">
+      {/* Center the phone mockup horizontally; allow document to scroll */}
+      <div className="w-full flex justify-center">
+        <div className="relative w-full max-w-[430px] bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-visible">
+          {/* FIXED header — sticks to viewport top, centered to mockup */}
+          <div
+            className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-50"
+            style={{ pointerEvents: 'none' }} // allow clicks to pass to header child if needed we can toggle
+          >
+            <div style={{ pointerEvents: 'auto' }}>
+              <Header />
+            </div>
+          </div>
 
-        <main
-          className="absolute top-12 sm:top-14 md:top-16 lg:top-20 left-0 right-0 bottom-12 sm:bottom-14 md:bottom-16 lg:bottom-20 overflow-y-auto scrollbar-none"
-        >
-          <Stories />
-          <section className="px-1">
-            {posts.map(post => (
-              <Post key={post.id} post={post} onToggleLike={toggleLike} onToggleSave={toggleSave} />
-            ))}
-          </section>
-        </main>
+          {/* Page content flows in the document — this is the part that scrolls (so Chrome hides its bars) */}
+          <main className="pt-12 sm:pt-14 md:pt-16 lg:pt-20 pb-16 sm:pb-18 md:pb-20">
+            <Stories />
+            <section className="px-1">
+              {posts.map(post => (
+                <Post key={post.id} post={post} onToggleLike={toggleLike} onToggleSave={toggleSave} />
+              ))}
+            </section>
+          </main>
 
-        <BottomNav />
+          {/* FIXED bottom nav — sticks to viewport bottom, centered to mockup */}
+          <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-50">
+            <BottomNav />
+          </div>
+        </div>
       </div>
     </div>
   );
